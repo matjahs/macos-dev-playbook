@@ -1,5 +1,6 @@
+---
 - name: kill dock
-  command: killall Dock
+  ansible.builtin.command: killall Dock
 
 - name: kill finder
-  command: killall Finder
+  ansible.builtin.command: killall Finder

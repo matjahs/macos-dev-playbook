@@ -20,7 +20,7 @@ dockitems_persist: []
 #   pos: 9
 
 configure_sudoers: false
-sudoers_custom_config: ''
+sudoers_custom_config: ""
 # Example:
 # sudoers_custom_config: |
 #   %admin ALL=(ALL) NOPASSWD: ALL
@@ -35,27 +35,25 @@ dotfiles_files:
   - .gitignore_global
   - .config/
 
-
 homebrew_installed_packages: []
 homebrew_taps: []
 homebrew_cask_appdir: /Applications
 homebrew_cask_apps: []
 
 mas_installed_apps: []
-mas_email: ''
-mas_password: ''
+mas_email: ""
+mas_password: ""
 
 osx_script: ~/.osx --no-restart
 
 npm_packages: []
-  # - name: webpack
-  #   state: present
-  #   version: ^5
-
+# - name: webpack
+#   state: present
+#   version: ^5
 
 pip_packages: []
-  # - name: mkdocs
-  #   state: present
-  #   version: "0.16.3"
+# - name: mkdocs
+#   state: present
+#   version: "0.16.3"
 
 post_provision_tasks: []

@@ -1,27 +1,35 @@
-- name: update homebrew
+---
+- name: Update Homebrew
   homebrew:
     name: git
-    state: latest
+    state: present
     update_homebrew: true
   tags:
     - brew
 
-- name: install homebrew packages
+- name: Install Homebrew packages
   homebrew:
-    name: {{ homebrew_packages }}
-    state: latest
+    name: "{{ item }}"
+    state: present
+    upgrade_all: "{{ upgrade_homebrew_packages }}"
+  with_items: "{{ homebrew_packages }}"
+  when: homebrew_check.stat.exists
   tags:
     - brew
 
-- name: install homebrew cask packages
-  command: brew install {{ homebrew_cask_packages | join(" ")}}
+- name: Install Homebrew cask packages
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ homebrew_cask_packages }}"
+  when: homebrew_check.stat.exists
   tags:
     - brew
 
-- name: upgrade pyenv
-  shell: brew unlink pyenv && brew install --head --fetch-head pyenv && brew link pyenv --head
+- name: Upgrade PyEnv
+  ansible.builtin.command: brew unlink pyenv && brew install --head --fetch-head pyenv && brew link pyenv --head
+  when:
+    - not homebrew_check.stat.exists
+    - not install_homebrew_if_missing
   tags:
     - pyenv
-
-- name: homebrew cleanup
-  command: brew cleanup

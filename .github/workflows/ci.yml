@@ -6,27 +6,27 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 5 * * 4'
+    - cron: "0 5 * * 4"
 
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v3
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      
+          cache: pip
+
       - name: Install test dependencies
-        run: pip3 install yamllint ansible ansible-lint
-      
+        run: pip3 install -r tests/requirements.txt
+
       - name: Lint
         run: |
           yamllint .
           ansible-lint
-  
+
   integration:
     name: Integration test
     runs-on: ${{ matrix.os }}
@@ -54,11 +54,11 @@ jobs:
           ansible-galaxy install -r requiremnets.yml
       - name: Test playbook syntax
         run: ansible-playbook main.yml --syntax-check
-      
+
       - name: Run tests
         run: ansible-playbook main.yml
         env:
-          ANSIBLE_FORCE_COLOR: '1'
+          ANSIBLE_FORCE_COLOR: "1"
 
       - name: Check idempotency
         run: |
@@ -66,4 +66,4 @@ jobs:
           ansible-playbook main.yml | tee -a ${idempotency}
           tail ${idempotency} | grep -q 'changed=0.*failed=0' && (echo 'Idempotency test: pass' && exit 0) || (echo 'Idempotency test: fail' && exit 1)
         env:
-          ANSIBLE_FORCE_COLOR: '1'
+          ANSIBLE_FORCE_COLOR: "1"
