@@ -18,10 +18,8 @@ jobs:
         with:
           python-version: 3.x
           cache: pip
-
       - name: Install test dependencies
         run: pip3 install -r tests/requirements.txt
-
       - name: Lint
         run: |
           yamllint .
@@ -37,7 +35,6 @@ jobs:
           - macos-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v3
       - name: Uninstall GH Actions builtin Homebrew
         run: tests/uninstall-homebrew.sh
       - name: Uninstall GH Actions' builtin browsers
