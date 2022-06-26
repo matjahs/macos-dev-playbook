@@ -1,0 +1,23 @@
+- name: dotfiles dirs
+  file:
+    path: ~/.{{ item }}
+    state: directory
+  loop:
+    - config
+    - zshrcd
+  tags:
+    - dotfiles
+
+- name: dotfiles symlink
+  file:
+    src: '{{ ansible_env.PWD }}/roles/matjah_mac/files/dotfiles/{{ item }}'
+    path: ~/.{{ item }}
+    state: link
+  loop:
+    - ansible.cfg
+    - gitconfig
+    - gitignore_global
+    - zshrc
+    - ssh/config
+  tags: 
+    - dotfiles

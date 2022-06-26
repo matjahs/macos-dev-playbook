@@ -1,0 +1,61 @@
+---
+downloads: ~/.ansible-downloads/
+
+configure_dotfiles: true
+configure_terminal: true
+configure_osx: true
+
+configure_dock: false
+dockitems_remove: []
+# - Launchpad
+# - TV
+# - Podcasts
+# - 'App Store'
+dockitems_persist: []
+# - name: Warp
+#   path: /Applications/Warp.app
+#   pos: 8
+# - name: 'Visual Studio Code'
+#   path: '/Applications/Visual Studio Code.app/'
+#   pos: 9
+
+configure_sudoers: false
+sudoers_custom_config: ''
+# Example:
+# sudoers_custom_config: |
+#   %admin ALL=(ALL) NOPASSWD: ALL
+
+dotfiles_repo: https://github.com/matjahs/dotfiles.git
+dotfiles_repo_accept_hostkey: true
+dotfiles_repo_local_dest: ~/.dotfiles
+dotfiles_files:
+  - .zshrc
+  - .zshrc.d/
+  - .gitconfig
+  - .gitignore_global
+  - .config/
+
+
+homebrew_installed_packages: []
+homebrew_taps: []
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps: []
+
+mas_installed_apps: []
+mas_email: ''
+mas_password: ''
+
+osx_script: ~/.osx --no-restart
+
+npm_packages: []
+  # - name: webpack
+  #   state: present
+  #   version: ^5
+
+
+pip_packages: []
+  # - name: mkdocs
+  #   state: present
+  #   version: "0.16.3"
+
+post_provision_tasks: []

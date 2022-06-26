@@ -1,0 +1,69 @@
+---
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 5 * * 4'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      
+      - name: Install test dependencies
+        run: pip3 install yamllint ansible ansible-lint
+      
+      - name: Lint
+        run: |
+          yamllint .
+          ansible-lint
+  
+  integration:
+    name: Integration test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v3
+      - name: Uninstall GH Actions builtin Homebrew
+        run: tests/uninstall-homebrew.sh
+      - name: Uninstall GH Actions' builtin browsers
+        run: |
+          sudo rm -rf /Applications/Firefox.app
+          sudo rm -rf /Applications/Google\ Chrome.app
+      - name: Install test dependencies
+        run: sudo pip3 install ansible
+      - name: Setup test environment
+        run: |
+          cp tests/ansible.cfg ./ansible.cfg
+          cp tests/inventory ./inventory
+          cp tests/config.yml ./config.yml
+          ansible-galaxy install -r requiremnets.yml
+      - name: Test playbook syntax
+        run: ansible-playbook main.yml --syntax-check
+      
+      - name: Run tests
+        run: ansible-playbook main.yml
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
+
+      - name: Check idempotency
+        run: |
+          idempotency=${mktemp}
+          ansible-playbook main.yml | tee -a ${idempotency}
+          tail ${idempotency} | grep -q 'changed=0.*failed=0' && (echo 'Idempotency test: pass' && exit 0) || (echo 'Idempotency test: fail' && exit 1)
+        env:
+          ANSIBLE_FORCE_COLOR: '1'

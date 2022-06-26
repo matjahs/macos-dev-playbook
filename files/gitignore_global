@@ -1,0 +1,32 @@
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes/
+ehthumbs.db
+Thumbs.db
+*~
+
+# VCS
+.svn
+
+# Python
+*.pyc
+.pycache
+.python-version
+.tox/
+.nox/
+.venv/
+venv/
+pip-wheel-metadata
+__pycache__/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/

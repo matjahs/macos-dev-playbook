@@ -1,0 +1,35 @@
+homebrew_packages:
+  - awscli
+  - github/gh/gh
+  - git
+  - jq
+  - nvm
+  - pre-commit
+  - rg
+  - ncdu
+  - shellcheck
+  - exa
+  - starship
+  - pyenv
+  - pyenv-virtualenv
+  - jetbrains-toolbox
+  - steam
+
+pyenv_python_versions:
+  - 3.9.12
+  - 3.10.4
+
+pip_packages:
+  - black
+  - flake8
+  - httpie
+  - ipython
+  - poetry
+  - pre-commit
+  - nox
+  - wheel
+  - virtualenv
+  - requests
+  - youtube-dl
+  - boto3
+  - autopep8

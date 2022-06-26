@@ -1,0 +1,29 @@
+[user]
+    name = Matjah Sonneveld
+    email = matjah@matjah.eu
+
+[core]
+    excludesfile = ~/.gitignore_global
+    pager = delta
+
+[credential]
+    helper = cache --timeout=3600
+
+[interactive]
+    singlekey = true
+    diffFilter = delta --color-only
+
+[color]
+    ui = auto
+
+[pull]
+    rebase = false
+
+[init]
+    defaultBranch = main
+
+[feature]
+    manyFiles = 1
+
+[rebase]
+    autoStash = true
