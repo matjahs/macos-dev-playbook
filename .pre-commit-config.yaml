@@ -8,8 +8,10 @@ ci:
     for more information, see https://pre-commit.ci
   skip:
     # https://github.com/pre-commit-ci/issues/issues/55
-    - pip-compile
-    - pip-compile-upgrade
+    - flake8
+    - black
+    - yamllint
+    - prettier
 default_language_version:
   python: python3.10
 repos:
@@ -34,15 +36,6 @@ repos:
       - id: fix-byte-order-marker
       - id: trailing-whitespace
       - id: mixed-line-ending
-  - repo: https://github.com/codespell-project/codespell
-    rev: v1.16.0
-    hooks:
-      - id: codespell
-        name: codespell
-        description: Checks for common misspellings in text files.
-        entry: codespell readme.md code.py
-        language: python
-        types: [text]
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.26.3
     hooks:
