@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Uninstall GH Actions builtin Homebrew
-        run: tests/uninstall-homebrew.sh
+        run: sudo tests/uninstall-homebrew.sh
       - name: Uninstall GH Actions' builtin browsers
         run: |
           sudo rm -rf /Applications/Firefox.app
