@@ -21,7 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Uninstall GH Actions builtin Homebrew
-        run: sudo tests/uninstall-homebrew.sh
+        run: |
+          curl -sLO https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh
+          chmod +x ./uninstall.sh
+          sudo ./uninstall.sh --force
+          sudo rm -rf /usr/local/{Homebrew,Caskroom}
+          sudo rm -rf /usr/local/bin/brew
       - name: Uninstall GH Actions' builtin browsers
         run: |
           sudo rm -rf /Applications/Firefox.app
@@ -33,7 +38,7 @@ jobs:
           cp tests/ansible.cfg ./ansible.cfg
           cp tests/inventory ./inventory
           cp tests/config.yml ./config.yml
-          ansible-galaxy install -r requiremnets.yml
+          ansible-galaxy install -r requirements.yml
       - name: Test playbook syntax
         run: ansible-playbook main.yml --syntax-check
 
