@@ -38,9 +38,10 @@ jobs:
         run: |
           sudo rm -rf /Applications/Firefox.app
           sudo rm -rf /Applications/Google\ Chrome.app
-      - name: Install OpenSSL with Homebrew
+      - name: Upgrade PiP
         run: |
-          brew install openssl@1.1 rust
+          sudo -H pip3 install --upgrade pip wheel setuptools
+          sudo -H pip3 install --upgrade cryptography
       - name: Install test dependencies
         run: sudo -H pip3 install ansible
       - name: Setup test environment
