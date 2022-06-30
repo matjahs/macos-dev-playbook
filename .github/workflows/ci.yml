@@ -24,7 +24,8 @@ jobs:
         with:
           path: |
             .cache/
-            ${HOME}/Library/Caches/pip/
+            ~/Library/Caches/pip/
+            ~/Library/Caches/Homebrew/
           key: cache-pip3
       - name: Uninstall GH Actions builtin Homebrew
         run: |
@@ -37,6 +38,9 @@ jobs:
         run: |
           sudo rm -rf /Applications/Firefox.app
           sudo rm -rf /Applications/Google\ Chrome.app
+      - name: Install OpenSSL with Homebrew
+        run: |
+          brew install openssl@1.1 rust
       - name: Install test dependencies
         run: sudo -H pip3 install ansible
       - name: Setup test environment
